@@ -1,5 +1,0 @@
-numpy>=1.24
-scipy>=1.9      # scipy.optimize.milp (HiGHS) is used as the full-horizon reference
-matplotlib>=3.6 # figures only
-skyfield>=1.45  # only to regenerate real/data/real_windows.csv
-sgp4>=2.21      # pulled in by skyfield

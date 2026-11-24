@@ -1,6 +1,0 @@
-satellite_id,satellite_name,norad_id,instrument,nominal_swath_km,swath_reference,notes
-landsat8,LANDSAT 8,39084,OLI/TIRS,185,USGS Landsat 8,swath is metadata only
-sentinel2a,SENTINEL-2A,40697,MSI,290,Sentinel-2 MSI,swath is metadata only
-resourcesat2a,RESOURCESAT-2A,41877,AWiFS,740,"ISRO PSLV-C36 (AWiFS swath; LISS-3 141 km, LISS-4 70 km)",swath is metadata only
-sentinel2b,SENTINEL-2B,42063,MSI,290,Sentinel-2 MSI,swath is metadata only
-landsat9,LANDSAT 9,49260,OLI-2/TIRS-2,185,USGS Landsat 8/9,swath is metadata only

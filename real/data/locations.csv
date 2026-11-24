@@ -1,9 +1,0 @@
-location_id,location_name,region,latitude_deg,longitude_deg,elevation_m,coordinate_note
-guwahati,Guwahati,Brahmaputra basin,26.1445,91.7362,54,Approximate city-centre coordinate
-dibrugarh,Dibrugarh,Brahmaputra basin,27.4728,94.9120,110,Approximate city-centre coordinate
-patna,Patna,Ganga basin,25.5941,85.1376,53,Approximate city-centre coordinate
-kochi,Kochi,Kerala,9.9312,76.2673,0,Approximate city-centre coordinate
-alappuzha,Alappuzha,Kerala,9.4981,76.3388,0,Approximate city-centre coordinate
-chennai,Chennai,Tamil Nadu,13.0827,80.2707,6,Approximate city-centre coordinate
-mumbai,Mumbai,Maharashtra,19.0760,72.8777,14,Approximate city-centre coordinate
-bengaluru,Bengaluru,Karnataka,12.9716,77.5946,920,Approximate city-centre coordinate
