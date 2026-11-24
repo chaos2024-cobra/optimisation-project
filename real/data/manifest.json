@@ -1,0 +1,141 @@
+{
+  "dataset_name": "India Earth-observation satellite visibility windows",
+  "generated_at_utc": "2026-11-24T11:20:51Z",
+  "window_start_utc": "2026-11-23T12:38:00Z",
+  "window_end_utc": "2026-11-30T12:38:00Z",
+  "horizon_days": 7.0,
+  "min_elevation_deg": 10.0,
+  "sample_step_s": 30,
+  "propagator": "Skyfield EarthSatellite (SGP4)",
+  "tle_source": "CelesTrak GP Earth Resources group",
+  "tle_snapshot_capture_utc": "2026-11-23T08:13:31Z",
+  "satellite_count": 5,
+  "location_count": 8,
+  "window_count": 897,
+  "satellites": [
+    {
+      "satellite_id": "landsat8",
+      "satellite_name": "LANDSAT 8",
+      "norad_id": 39084,
+      "instrument": "OLI/TIRS",
+      "nominal_swath_km": 185.0,
+      "swath_reference": "USGS Landsat 8",
+      "notes": "swath is metadata only"
+    },
+    {
+      "satellite_id": "sentinel2a",
+      "satellite_name": "SENTINEL-2A",
+      "norad_id": 40697,
+      "instrument": "MSI",
+      "nominal_swath_km": 290.0,
+      "swath_reference": "Sentinel-2 MSI",
+      "notes": "swath is metadata only"
+    },
+    {
+      "satellite_id": "resourcesat2a",
+      "satellite_name": "RESOURCESAT-2A",
+      "norad_id": 41877,
+      "instrument": "AWiFS",
+      "nominal_swath_km": 740.0,
+      "swath_reference": "ISRO PSLV-C36 (AWiFS swath; LISS-3 141 km, LISS-4 70 km)",
+      "notes": "swath is metadata only"
+    },
+    {
+      "satellite_id": "sentinel2b",
+      "satellite_name": "SENTINEL-2B",
+      "norad_id": 42063,
+      "instrument": "MSI",
+      "nominal_swath_km": 290.0,
+      "swath_reference": "Sentinel-2 MSI",
+      "notes": "swath is metadata only"
+    },
+    {
+      "satellite_id": "landsat9",
+      "satellite_name": "LANDSAT 9",
+      "norad_id": 49260,
+      "instrument": "OLI-2/TIRS-2",
+      "nominal_swath_km": 185.0,
+      "swath_reference": "USGS Landsat 8/9",
+      "notes": "swath is metadata only"
+    }
+  ],
+  "locations": [
+    {
+      "location_id": "guwahati",
+      "location_name": "Guwahati",
+      "region": "Brahmaputra basin",
+      "latitude_deg": 26.1445,
+      "longitude_deg": 91.7362,
+      "elevation_m": 54.0
+    },
+    {
+      "location_id": "dibrugarh",
+      "location_name": "Dibrugarh",
+      "region": "Brahmaputra basin",
+      "latitude_deg": 27.4728,
+      "longitude_deg": 94.912,
+      "elevation_m": 110.0
+    },
+    {
+      "location_id": "patna",
+      "location_name": "Patna",
+      "region": "Ganga basin",
+      "latitude_deg": 25.5941,
+      "longitude_deg": 85.1376,
+      "elevation_m": 53.0
+    },
+    {
+      "location_id": "kochi",
+      "location_name": "Kochi",
+      "region": "Kerala",
+      "latitude_deg": 9.9312,
+      "longitude_deg": 76.2673,
+      "elevation_m": 0.0
+    },
+    {
+      "location_id": "alappuzha",
+      "location_name": "Alappuzha",
+      "region": "Kerala",
+      "latitude_deg": 9.4981,
+      "longitude_deg": 76.3388,
+      "elevation_m": 0.0
+    },
+    {
+      "location_id": "chennai",
+      "location_name": "Chennai",
+      "region": "Tamil Nadu",
+      "latitude_deg": 13.0827,
+      "longitude_deg": 80.2707,
+      "elevation_m": 6.0
+    },
+    {
+      "location_id": "mumbai",
+      "location_name": "Mumbai",
+      "region": "Maharashtra",
+      "latitude_deg": 19.076,
+      "longitude_deg": 72.8777,
+      "elevation_m": 14.0
+    },
+    {
+      "location_id": "bengaluru",
+      "location_name": "Bengaluru",
+      "region": "Karnataka",
+      "latitude_deg": 12.9716,
+      "longitude_deg": 77.5946,
+      "elevation_m": 920.0
+    }
+  ],
+  "interpretation": "Rows are geometric satellite visibility passes above the selected minimum elevation at representative city-centre coordinates. They are not confirmed image acquisitions, tasking opportunities, or cloud-free observations.",
+  "swath_note": "Nominal sensor swath widths are included as metadata only. The current pass filter is elevation-only; no sensor-specific off-nadir steering, footprint, sunlight, cloud, acquisition-plan, or downlink constraints are applied.",
+  "synthetic_fields_excluded": [
+    "priority",
+    "energy_cost",
+    "energy_budget",
+    "data_budget"
+  ],
+  "files": [
+    "real_windows.csv",
+    "real_windows.json",
+    "manifest.json"
+  ]
+}
