@@ -1,6 +1,6 @@
 # Satellite Observation Scheduling with Urgent Replanning
 
-Naksh Sharma (BA2025023), R Krish (BA2025005), Arjun Kesav S (BA2025023)
+Naksh Sharma (BA2025023), R Krish (BA2025035), Arjun Kesav S (BA2025005)
 
 Given an issued satellite schedule and a newly arriving imaging request, select
 a feasible pass by its deadline and preserve routine observations where possible.
