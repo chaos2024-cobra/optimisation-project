@@ -2,25 +2,52 @@
 
 **Team Astra** · Optimization Course Project · IIIT Bangalore
 
+## Team
+
 | Name | Roll number |
 |---|---|
 | Naksh Sharma | BA2025023 |
 | R Krish | BA2025035 |
 | Arjun Kesav S | BA2025005 |
 
-An urgent imaging request (say, a flood) can arrive after a constellation has already committed to a routine
-schedule. This project compares four ways of fitting that request in, and shows that an exact search over a
-**small neighborhood** of the schedule serves nearly every feasible alert, far faster than re-solving everything.
+## Project title
 
-Full write-up: [`Astra_Project_Report.pdf`](Astra_Project_Report.pdf)
+Satellite Observation Scheduling: Urgent Replanning
 
-## Quick start
+## Short description
 
-Requires Python 3.9+ and SciPy (which installs NumPy).
+An urgent imaging request (say, a flood) can arrive after a constellation has already committed to a routine schedule. This project compares four ways of fitting that request in (greedy insertion, restricted exact replanning, full exact search, and a full MILP) and shows that an exact search over a small neighborhood of the schedule serves nearly every feasible alert, far faster than re-solving everything.
+
+Full write-up: [Astra_Project_Report.pdf](Astra_Project_Report.pdf)
+
+## Libraries used
+
+| Library | Used for |
+|---|---|
+| **SciPy** (`scipy.optimize.milp`, `Bounds`, `LinearConstraint`; HiGHS solver) | Full-horizon MILP method |
+| **NumPy** (installed with SciPy) | Building the MILP constraint matrices |
+| Python standard library (`csv`, `sys`, `time`, `random`, `statistics`) | Data loading, command-line arguments, timing, seeded random alerts, summary statistics |
+
+## Setup instructions
+
+Requires **Python 3.9+**.
 
 ```bash
-pip install -r requirements.txt
+# 1. Clone the repository
+git clone <your-repo-url>
+cd <your-repo-folder>
 
+# 2. (Optional) create a virtual environment
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+
+# 3. Install dependencies (SciPy also installs NumPy)
+pip install -r requirements.txt
+```
+
+## Running the project
+
+```bash
 python scheduler.py                                  # default alert on passes.csv
 python scheduler.py passes.csv FLOOD 90 150 12       # file, urgent target, alert time, deadline, energy budget per satellite
 python scheduler.py passes.csv FLOOD 90 105 12       # infeasible deadline: every method misses
@@ -49,17 +76,15 @@ Runtimes are also printed and vary by machine; everything else is deterministic.
 
 ## The problem
 
-Each candidate pass is a fixed observation of one target by one satellite, with a priority and an energy cost.
-A plan picks passes so that:
+Each candidate pass is a fixed observation of one target by one satellite, with a priority and an energy cost. A plan picks passes so that:
 
 - each target is imaged at most once,
 - passes on the same satellite do not overlap in time,
 - each satellite stays within its energy budget,
-- passes that start within **5 time units** of the alert (the freeze window) stay exactly as issued, and nothing new may start inside it,
+- passes that start within 5 time units of the alert (the freeze window) stay exactly as issued, and nothing new may start inside it,
 - the urgent target's pass ends by the deadline.
 
-Plans are compared **lexicographically**: (1) urgent priority, (2) routine priority, (3) fewer edits to the issued plan,
-(4) less energy. A reassignment counts as two edits (one removal, one addition).
+Plans are compared lexicographically: (1) urgent priority, (2) routine priority, (3) fewer edits to the issued plan, (4) less energy. A reassignment counts as two edits (one removal, one addition).
 
 ## The four methods
 
@@ -72,8 +97,7 @@ Plans are compared **lexicographically**: (1) urgent priority, (2) routine prior
 
 ## Results
 
-`validate.py` replays 20 seeded alerts (random urgent target, alert time, deadline and energy budget of 10, 12 or 14)
-and validates every plan from every method. Numbers from the shipped `validation.csv`:
+`validate.py` replays 20 seeded alerts (random urgent target, alert time, deadline and energy budget of 10, 12 or 14) and validates every plan from every method. Numbers from the shipped `validation.csv`:
 
 | Method | Deadlines met | Matches MILP | Median time |
 |---|---|---|---|
@@ -108,19 +132,15 @@ One row per candidate observation in `passes.csv`. Edit or add rows to try your 
 id,satellite,target,start,end,priority,energy
 ```
 
-Times and energy are in abstract units. A target with several rows has alternate passes. Keep the file to roughly
-12 targets or fewer, since the exact-search methods grow exponentially with the number of open targets.
+Times and energy are in abstract units. A target with several rows has alternate passes. Keep the file to roughly 12 targets or fewer, since the exact-search methods grow exponentially with the number of open targets.
 
 ## Validation checks
 
-Every plan returned by every method is checked for: candidate passes only, one pass per target, no overlaps on a
-satellite, energy budget, frozen passes kept, nothing new inside the freeze window, and the urgent pass ending by
-the deadline. `scheduler.py` prints `INVALID:` lines if any check fails on its single alert; `validate.py` reports
-how many plans were valid.
+Every plan returned by every method is checked for: candidate passes only, one pass per target, no overlaps on a satellite, energy budget, frozen passes kept, nothing new inside the freeze window, and the urgent pass ending by the deadline. `scheduler.py` prints `INVALID:` lines if any check fails on its single alert; `validate.py` reports how many plans were valid.
 
 ## Limitations
 
 - Tiny hand-written dataset; the replayed alerts are related and do not show mission-scale reliability.
 - Urgent requests, energy budgets and the freeze window are simulated.
 - Pass times are fixed. Slewing, downlink, storage and attitude constraints are not modeled.
-- Restricted replanning stops at the first neighborhood that serves the alert and has no MILP fallback, so it can leave routine value on the table.
+- Restricted replanning stops at the first neighborhood that serves the alert and has no MILP fallback, so it can leave routine value on the table.irst neighborhood that serves the alert and has no MILP fallback, so it can leave routine value on the table.
