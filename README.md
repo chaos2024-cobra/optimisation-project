@@ -34,8 +34,8 @@ Requires **Python 3.9+**.
 
 ```bash
 # 1. Clone the repository
-git clone <your-repo-url>
-cd <your-repo-folder>
+git clone https://github.com/chaos2024-cobra/optimisation-project.git
+cd optimisation-project
 
 # 2. (Optional) create a virtual environment
 python -m venv venv
