@@ -1,6 +1,6 @@
 # Satellite Observation Scheduling with Urgent Replanning
 
-**Team name:** Optimization Project
+**Team name:** Astra
 
 | Member | ID |
 | --- | --- |
