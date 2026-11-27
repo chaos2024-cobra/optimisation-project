@@ -1,42 +1,35 @@
-# Satellite Observation Scheduling with Urgent Replanning
+# Satellite replanning (basic version)
 
-**Team name:** Astra
+One script. Needs `scipy` (installs numpy too): `pip install -r requirements.txt`. Python 3.9+.
 
-| Member | ID |
-| --- | --- |
-| Naksh Sharma | BA2025023 |
-| R Krish | BA2025035 |
-| Arjun Kesav S | BA2025005 |
+    python scheduler.py                                  # uses passes.csv
+    python scheduler.py passes.csv FLOOD 90 150 12       # file, urgent target, alert time, deadline, energy budget per satellite
 
-## Description
+## Validation
 
-Given an issued satellite observation schedule and a newly arriving urgent
-imaging request, the program selects a feasible pass before the deadline while
-preserving as many routine observations as possible. It compares three
-approaches (greedy insertion, restricted replanning, and full-horizon MILP) on
-a bundled IAEOSSP benchmark slice. See `Project_Report.pdf` for the model,
-validation protocol, results and limitations.
+    python validate.py [passes.csv] [number_of_alerts] [output.csv]
 
-## Libraries used
+Replays random alerts (fixed seed, default 20), runs all four methods three times each, checks every plan
+(candidate passes only, one pass per target, no overlaps, energy budget, frozen passes kept, nothing new
+inside the freeze window, urgent pass ends by the deadline), and writes `validation.csv`. Also prints a
+summary: deadlines met, how often each method matches the full MILP's result, median runtime.
+`python scheduler.py` runs the same checks on its single alert and prints `INVALID:` lines if any fail.
 
-- Python 3.9+
-- SciPy 1.9+ (MILP solver; also installs NumPy)
-- Standard library only otherwise (argparse, csv, dataclasses, itertools, etc.)
+## Dataset (`passes.csv`)
 
-## Setup
+One row per candidate observation. Add or edit rows to try your own data.
 
-```sh
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-```
+    id,satellite,target,start,end,priority,energy
 
-## Run
+## What it does
 
-```sh
-python replan.py                           # floodplain example
-python replan.py --deadline 10             # impossible-deadline case
-python validate.py --demo T400_S3_G1_H1    # dataset example
-python validate.py --output validation.csv # full validation run
-python -m unittest -v                      # tests
-```
+1. Builds the issued plan with exact search (one pass per target, no overlaps on a satellite, energy budget per satellite).
+2. An urgent target arrives. Passes starting within 5 time units of the alert (`FREEZE`) stay fixed.
+3. Compares three ways to add it:
+   - Greedy: earliest urgent pass that fits, old plan untouched.
+   - Restricted: exact search over the urgent target plus the 3 most related planned targets (time overlap, same satellite, closeness), growing by 3 until the urgent target fits.
+   - Full search: exact search over every unfrozen target (reference optimum).
+   - Full MILP: the same problem solved as a mixed-integer program (four solves, one per objective), via `scipy.optimize.milp`.
+4. Objective order: urgent priority, routine priority, fewer changes, less energy.
+
+Exact search grows quickly with targets, so keep the CSV to roughly 12 targets or fewer.
